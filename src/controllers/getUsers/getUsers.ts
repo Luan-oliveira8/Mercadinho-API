@@ -1,11 +1,7 @@
 import { IGetUsersController, IGetUsersRepository } from "./protocols";
 
 export class GetUsersController implements IGetUsersController {
-  getUsersRepository: IGetUsersRepository;
-
-  constructor(getUsersRepository: IGetUsersRepository) {
-    this.getUsersRepository = getUsersRepository;
-  }
+  constructor(private readonly getUsersRepository: IGetUsersRepository) {}
 
   async handle() {
     try {
@@ -18,7 +14,7 @@ export class GetUsersController implements IGetUsersController {
     } catch (error) {
       return {
         statusCode: 200,
-        body: `Ocorreu um erro inesperado: ${error}`,
+        body: `Somethig went wrong.: ${error}`,
       };
     }
   }
