@@ -25,7 +25,7 @@ export class UpdateUserController implements IController {
 
       return ok<User>(user);
     } catch (error) {
-      return serverError(`Something went wrong ${error}`);
+      return serverError(error);
     }
   }
 }

@@ -21,7 +21,7 @@ export class CreateUserController implements IController {
 
       return created<User>(user);
     } catch (error) {
-      return serverError(`Something went wrong ${error}`);
+      return serverError(error);
     }
   }
 }

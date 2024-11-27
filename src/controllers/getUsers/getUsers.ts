@@ -1,5 +1,5 @@
 import { User } from "../../models/user";
-import { ok } from "../helpers";
+import { ok, serverError } from "../helpers";
 import { HttpResponse, IController } from "../protocols";
 import { IGetUsersRepository } from "./protocols";
 
@@ -12,10 +12,7 @@ export class GetUsersController implements IController {
 
       return ok<User[]>(users);
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: `Somethig went wrong.: ${error}`,
-      };
+      return serverError(error);
     }
   }
 }

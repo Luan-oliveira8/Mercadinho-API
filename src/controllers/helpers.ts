@@ -21,9 +21,9 @@ export const badRequest = (menssage: string): HttpResponse<string> => {
   };
 };
 
-export const serverError = (menssage: string): HttpResponse<string> => {
+export const serverError = (error: unknown): HttpResponse<string> => {
   return {
     statusCode: 500,
-    body: menssage,
+    body: `Something went wrong: ${error}`,
   };
 };
