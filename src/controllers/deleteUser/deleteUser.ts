@@ -1,28 +1,32 @@
-import { ObjectId } from "mongodb";
-import { MongoClient } from "../../database/mongo";
 import { User } from "../../models/user";
-import { IDeleteUserRepository } from "./protocols";
+import { HttpRequest, HttpResponse } from "../protocols";
+import { IDeleteUserController, IDeleteUserRepository } from "./protocols";
 
-export class MongoDeleteUserRepository implements IDeleteUserRepository {
-  async deleteUser(id: string): Promise<User> {
-    const user = await MongoClient.db
-      .collection<Omit<User, "id">>("users")
-      .findOne({ _id: new ObjectId(id) });
+export class DeleteUserController implements IDeleteUserController {
+  constructor(private readonly deleteUserRepository: IDeleteUserRepository) {}
 
-    if (!user) {
-      throw new Error("User not found");
+  async handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<User>> {
+    try {
+      const id = httpRequest?.params?.id;
+
+      if (!id) {
+        return {
+          statusCode: 400,
+          body: "Missing user id",
+        };
+      }
+
+      const user = await this.deleteUserRepository.deleteUser(id);
+
+      return {
+        statusCode: 200,
+        body: user,
+      };
+    } catch (erro) {
+      return {
+        statusCode: 500,
+        body: `Something went wrong ${erro}`,
+      };
     }
-
-    const { deletedCount } = await MongoClient.db
-      .collection("users")
-      .deleteOne({ _id: new ObjectId(id) });
-
-    if (!deletedCount) {
-      throw new Error("User not deleted");
-    }
-
-    const { _id, ...rest } = user;
-
-    return { id: _id.toHexString(), ...rest };
   }
 }
