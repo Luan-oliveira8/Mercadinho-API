@@ -1,7 +1,7 @@
 import { IGetUsersRepository } from "../../controllers/getUsers/protocols";
 import { MongoClient } from "../../database/mongo";
 import { User } from "../../models/user";
-import { MongoUser } from "../mongoProtocols";
+import { MongoUser, transformMongoArray } from "../mongoProtocols";
 
 export class MongoGetUsersRepository implements IGetUsersRepository {
   async getUsers(): Promise<User[]> {
@@ -10,9 +10,6 @@ export class MongoGetUsersRepository implements IGetUsersRepository {
       .find({})
       .toArray();
 
-    return users.map(({ _id, ...rest }) => ({
-      ...rest,
-      id: _id.toHexString(),
-    }));
+    return transformMongoArray(users);
   }
 }

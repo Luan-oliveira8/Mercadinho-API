@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { MongoClient } from "../../database/mongo";
 import { User } from "../../models/user";
 import { IDeleteUserRepository } from "../../controllers/deleteUser/protocols";
-import { MongoUser } from "../mongoProtocols";
+import { MongoUser, transformMongoObject } from "../mongoProtocols";
 
 export class MongoDeleteUserRepository implements IDeleteUserRepository {
   async deleteUser(id: string): Promise<User> {
@@ -22,8 +22,6 @@ export class MongoDeleteUserRepository implements IDeleteUserRepository {
       throw new Error("User not deleted");
     }
 
-    const { _id, ...rest } = user;
-
-    return { id: _id.toHexString(), ...rest };
+    return transformMongoObject(user);
   }
 }
