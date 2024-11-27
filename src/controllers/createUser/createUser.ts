@@ -1,4 +1,5 @@
 import { User } from "../../models/user";
+import { badRequest, created, serverError } from "../helpers";
 import { HttpRequest, HttpResponse, IController } from "../protocols";
 import { CreateUserParams, ICreateUserRepository } from "./protocols";
 
@@ -7,29 +8,20 @@ export class CreateUserController implements IController {
 
   async handle(
     httpRequest: HttpRequest<CreateUserParams>
-  ): Promise<HttpResponse<User>> {
+  ): Promise<HttpResponse<User | string>> {
     try {
       const { body } = httpRequest;
 
       if (!body) {
-        return {
-          statusCode: 400,
-          body: "Pease sepecify a body",
-        };
+        return badRequest("Pease sepecify a body");
       }
       console.log(body);
 
       const user = await this.createUserRepository.createUser(body);
 
-      return {
-        statusCode: 201,
-        body: user,
-      };
+      return created<User>(user);
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: `Somethig went wrong.: ${error}`,
-      };
+      return serverError(`Something went wrong ${error}`);
     }
   }
 }
