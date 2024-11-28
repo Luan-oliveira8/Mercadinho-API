@@ -1,16 +1,16 @@
 import express from "express";
 import { config } from "dotenv";
-import { GetUsersController } from "./controllers/getUsers/getUsers";
-import { MongoGetUsersRepository } from "./repositories/getUsers/mongoGetUsers";
+import { GetUsersController } from "./controllers/user/getUsers/getUsers";
+import { MongoGetUsersRepository } from "./repositories/user/getUsers/mongoGetUsers";
 import { MongoClient } from "./database/mongo";
-import { MongoCreateUserRepository } from "./repositories/creaateUser/mongoCreateUser";
-import { CreateUserController } from "./controllers/createUser/createUser";
-import { UpdateUserController } from "./controllers/updateUser/updateUser";
-import { MongoUpdateUserRepository } from "./repositories/updateUser/mongoUpdateUser";
-import { MongoDeleteUserRepository } from "./repositories/deleteUser/mongoDeleteUser";
-import { DeleteUserController } from "./controllers/deleteUser/deleteUser";
-import { MongoLoginRepository } from "./repositories/loginUser/mongoLogin";
-import { LoginUsersController } from "./controllers/loginUser/loginUser";
+import { MongoCreateUserRepository } from "./repositories/user/creaateUser/mongoCreateUser";
+import { CreateUserController } from "./controllers/user/createUser/createUser";
+import { UpdateUserController } from "./controllers/user/updateUser/updateUser";
+import { MongoUpdateUserRepository } from "./repositories/user/updateUser/mongoUpdateUser";
+import { MongoDeleteUserRepository } from "./repositories/user/deleteUser/mongoDeleteUser";
+import { DeleteUserController } from "./controllers/user/deleteUser/deleteUser";
+import { MongoLoginRepository } from "./repositories/user/loginUser/mongoLogin";
+import { LoginUsersController } from "./controllers/user/loginUser/loginUser";
 
 const main = async () => {
   config();

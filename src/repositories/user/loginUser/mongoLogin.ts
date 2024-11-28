@@ -1,7 +1,7 @@
-import { ILoginUserRepository } from "../../controllers/loginUser/protocols";
-import { MongoClient } from "../../database/mongo";
-import { User } from "../../models/user";
-import { MongoUser, transformMongoObject } from "../mongoProtocols";
+import { ILoginUserRepository } from "../../../controllers/user/loginUser/protocols";
+import { MongoClient } from "../../../database/mongo";
+import { User } from "../../../models/user";
+import { MongoUser, transformMongoObject } from "../../mongoProtocols";
 
 export class MongoLoginRepository implements ILoginUserRepository {
   async login(email: string, password: string): Promise<User> {
