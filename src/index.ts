@@ -11,6 +11,8 @@ import { MongoDeleteUserRepository } from "./repositories/user/deleteUser/mongoD
 import { DeleteUserController } from "./controllers/user/deleteUser/deleteUser";
 import { MongoLoginRepository } from "./repositories/user/loginUser/mongoLogin";
 import { LoginUsersController } from "./controllers/user/loginUser/loginUser";
+import { MongoCreateProductRepository } from "./repositories/product/createProduct/mongoCreateProduct";
+import { CreateProductController } from "./controllers/product/createProduct/createProduct";
 
 const main = async () => {
   config();
@@ -80,6 +82,19 @@ const main = async () => {
 
     const { body, statusCode } = await loginUsersController.handle({
       params: req.body,
+    });
+
+    res.status(statusCode).send(body);
+  });
+
+  app.post("/product", async (req, res) => {
+    const mongoCreateProductRepository = new MongoCreateProductRepository();
+
+    const createProductController = new CreateProductController(
+      mongoCreateProductRepository
+    );
+    const { body, statusCode } = await createProductController.handle({
+      body: req.body,
     });
 
     res.status(statusCode).send(body);
