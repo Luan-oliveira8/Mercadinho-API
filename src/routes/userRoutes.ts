@@ -12,9 +12,22 @@ import { LoginUsersController } from "../controllers/user/loginUser/loginUser";
 
 const userRoutes = Router();
 
+const mongoCreateUserRepository = new MongoCreateUserRepository();
+const createUserController = new CreateUserController(mongoCreateUserRepository);
+
+const mongoDeleteUserRepository = new MongoDeleteUserRepository();
+const deleteUserController = new DeleteUserController(mongoDeleteUserRepository);
+
+const mongoGetUsersRepository = new MongoGetUsersRepository();
+const getUsersController = new GetUsersController(mongoGetUsersRepository);
+
+const mongoUpdateUserRepository = new MongoUpdateUserRepository();
+const updateUserController = new UpdateUserController(mongoUpdateUserRepository);
+
+const mongoLoginRepository = new MongoLoginRepository();
+const loginUsersController = new LoginUsersController(mongoLoginRepository);
+
 userRoutes.get("/", async (req, res) => {
-    const mongoGetUsersRepository = new MongoGetUsersRepository();
-    const getUsersController = new GetUsersController(mongoGetUsersRepository);
 
     const { body, statusCode } = await getUsersController.handle();
 
@@ -22,11 +35,7 @@ userRoutes.get("/", async (req, res) => {
   });
 
   userRoutes.post("/", async (req, res) => {
-    const mongoCreateUserRepository = new MongoCreateUserRepository();
 
-    const createUserController = new CreateUserController(
-      mongoCreateUserRepository
-    );
     const { body, statusCode } = await createUserController.handle({
       body: req.body,
     });
@@ -35,10 +44,6 @@ userRoutes.get("/", async (req, res) => {
   });
 
   userRoutes.patch("/:id", async (req, res) => {
-    const mongoUpdateUserRepository = new MongoUpdateUserRepository();
-    const updateUserController = new UpdateUserController(
-      mongoUpdateUserRepository
-    );
 
     const { body, statusCode } = await updateUserController.handle({
       body: req.body,
@@ -49,10 +54,6 @@ userRoutes.get("/", async (req, res) => {
   });
 
   userRoutes.delete("/:id", async (req, res) => {
-    const mongoDeleteUserRepository = new MongoDeleteUserRepository();
-    const deleteUserController = new DeleteUserController(
-      mongoDeleteUserRepository
-    );
 
     const { body, statusCode } = await deleteUserController.handle({
       params: req.params,
@@ -62,8 +63,6 @@ userRoutes.get("/", async (req, res) => {
   });
 
   userRoutes.post("/login", async (req, res) => {
-    const mongoLoginRepository = new MongoLoginRepository();
-    const loginUsersController = new LoginUsersController(mongoLoginRepository);
 
     const { body, statusCode } = await loginUsersController.handle({
       params: req.body,
