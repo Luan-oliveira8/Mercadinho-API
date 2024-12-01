@@ -15,6 +15,8 @@ import { MongoCreateProductRepository } from "./repositories/product/createProdu
 import { CreateProductController } from "./controllers/product/createProduct/createProduct";
 import { MongoDeleteProductRepository } from "./repositories/product/deleteProduct/mongoDeleteProduct";
 import { DeleteProductController } from "./controllers/product/deleteProduct/deleteProduct";
+import { MongoGetProductsRepository } from "./repositories/product/getProducts/MongoGetProducts";
+import { GetProductsController } from "./controllers/product/getProducts/getProducts";
 
 const main = async () => {
   config();
@@ -111,6 +113,15 @@ const main = async () => {
     const { body, statusCode } = await deleteProductController.handle({
       params: req.params,
     });
+
+    res.status(statusCode).send(body);
+  });
+
+  app.get("/products", async (req, res) => {
+    const mongoGetProductsRepository = new MongoGetProductsRepository();
+    const getProductsController = new GetProductsController(mongoGetProductsRepository);
+
+    const { body, statusCode } = await getProductsController.handle();
 
     res.status(statusCode).send(body);
   });
