@@ -17,9 +17,9 @@ export class CreateProductController implements IController {
       }
       console.log(body);
 
-      const user = await this.createProductRepository.createProduct(body);
+      const product = await this.createProductRepository.createProduct(body);
 
-      return created<Product>(user);
+      return created<Product>(product);
     } catch (error) {
       return serverError(error);
     }
