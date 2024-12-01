@@ -15,7 +15,6 @@ export class CreateUserController implements IController {
       if (!body) {
         return badRequest("Pease sepecify a body");
       }
-      console.log(body);
 
       const user = await this.createUserRepository.createUser(body);
 

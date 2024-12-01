@@ -15,7 +15,6 @@ export class CreateProductController implements IController {
       if (!body) {
         return badRequest("Pease sepecify a body");
       }
-      console.log(body);
 
       const product = await this.createProductRepository.createProduct(body);
 
