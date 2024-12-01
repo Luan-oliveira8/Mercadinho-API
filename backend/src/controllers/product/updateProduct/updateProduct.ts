@@ -1,6 +1,6 @@
 import { Product } from "../../../models/product";
-import { badRequest, ok, serverError } from "../../helpers";
-import { HttpRequest, HttpResponse, IController } from "../../protocols";
+import { badRequest, ok, serverError } from "../../../utils/helpers";
+import { HttpRequest, HttpResponse, IController } from "../../../utils/httpProtocols";
 import { IUpdateProductRepository, UpdateProductParams } from "./protocols";
 
 export class UpdateProductController implements IController {
