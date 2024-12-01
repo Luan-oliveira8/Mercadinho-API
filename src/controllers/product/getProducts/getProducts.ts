@@ -1,6 +1,7 @@
 import { Product } from "../../../models/product";
 import { ok, serverError } from "../../../utils/helpers";
-import { HttpResponse, IController } from "../../../utils/httpProtocols";
+import { HttpResponse } from "../../../utils/httpProtocols";
+import { IController } from "../../protocols";
 import { IGetProductsRepository } from "./protocols";
 
 export class GetProductsController implements IController {

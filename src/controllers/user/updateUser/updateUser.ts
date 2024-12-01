@@ -1,6 +1,7 @@
 import { User } from "../../../models/user";
 import { badRequest, ok, serverError } from "../../../utils/helpers";
-import { HttpRequest, HttpResponse, IController } from "../../../utils/httpProtocols";
+import { HttpRequest, HttpResponse } from "../../../utils/httpProtocols";
+import { IController } from "../../protocols";
 import { IUpdateUserRepository, UpdateUserParams } from "./protocols";
 
 export class UpdateUserController implements IController {

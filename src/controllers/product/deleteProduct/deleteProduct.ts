@@ -1,6 +1,7 @@
 import { Product } from "../../../models/product";
 import { badRequest, ok, serverError } from "../../../utils/helpers";
-import { HttpRequest, HttpResponse, IController } from "../../../utils/httpProtocols";
+import { HttpRequest, HttpResponse } from "../../../utils/httpProtocols";
+import { IController } from "../../protocols";
 import { IDeleteProductRepository } from "./protocols";
 
 export class DeleteProductController implements IController {

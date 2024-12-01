@@ -1,6 +1,7 @@
 import { User } from "../../../models/user";
 import { badRequest, ok, serverError } from "../../../utils/helpers";
-import { HttpRequest, HttpResponse, IController } from "../../../utils/httpProtocols";
+import { HttpRequest, HttpResponse } from "../../../utils/httpProtocols";
+import { IController } from "../../protocols";
 import { ILoginUserRepository } from "./protocols";
 
 export class LoginUsersController implements IController {
