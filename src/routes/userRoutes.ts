@@ -13,62 +13,63 @@ import { LoginUsersController } from "../controllers/user/loginUser/loginUser";
 const userRoutes = Router();
 
 const mongoCreateUserRepository = new MongoCreateUserRepository();
-const createUserController = new CreateUserController(mongoCreateUserRepository);
+const createUserController = new CreateUserController(
+  mongoCreateUserRepository
+);
 
 const mongoDeleteUserRepository = new MongoDeleteUserRepository();
-const deleteUserController = new DeleteUserController(mongoDeleteUserRepository);
+const deleteUserController = new DeleteUserController(
+  mongoDeleteUserRepository
+);
 
 const mongoGetUsersRepository = new MongoGetUsersRepository();
 const getUsersController = new GetUsersController(mongoGetUsersRepository);
 
 const mongoUpdateUserRepository = new MongoUpdateUserRepository();
-const updateUserController = new UpdateUserController(mongoUpdateUserRepository);
+const updateUserController = new UpdateUserController(
+  mongoUpdateUserRepository
+);
 
 const mongoLoginRepository = new MongoLoginRepository();
 const loginUsersController = new LoginUsersController(mongoLoginRepository);
 
 userRoutes.get("/", async (req, res) => {
+  const { body, statusCode } = await getUsersController.handle();
 
-    const { body, statusCode } = await getUsersController.handle();
+  res.status(statusCode).send(body);
+});
 
-    res.status(statusCode).send(body);
+userRoutes.post("/register", async (req, res) => {
+  const { body, statusCode } = await createUserController.handle({
+    body: req.body,
   });
 
-  userRoutes.post("/", async (req, res) => {
+  res.status(statusCode).send(body);
+});
 
-    const { body, statusCode } = await createUserController.handle({
-      body: req.body,
-    });
-
-    res.status(statusCode).send(body);
+userRoutes.patch("/:id", async (req, res) => {
+  const { body, statusCode } = await updateUserController.handle({
+    body: req.body,
+    params: req.params,
   });
 
-  userRoutes.patch("/:id", async (req, res) => {
+  res.status(statusCode).send(body);
+});
 
-    const { body, statusCode } = await updateUserController.handle({
-      body: req.body,
-      params: req.params,
-    });
-
-    res.status(statusCode).send(body);
+userRoutes.delete("/:id", async (req, res) => {
+  const { body, statusCode } = await deleteUserController.handle({
+    params: req.params,
   });
 
-  userRoutes.delete("/:id", async (req, res) => {
+  res.status(statusCode).send(body);
+});
 
-    const { body, statusCode } = await deleteUserController.handle({
-      params: req.params,
-    });
-
-    res.status(statusCode).send(body);
+userRoutes.post("/login", async (req, res) => {
+  const { body, statusCode } = await loginUsersController.handle({
+    params: req.body,
   });
 
-  userRoutes.post("/login", async (req, res) => {
+  res.status(statusCode).send(body);
+});
 
-    const { body, statusCode } = await loginUsersController.handle({
-      params: req.body,
-    });
-
-    res.status(statusCode).send(body);
-  });
-
-  export default userRoutes;
+export default userRoutes;
