@@ -11,50 +11,54 @@ import { MongoUpdateProductRepository } from "../repositories/product/updateProd
 const productRoutes = Router();
 
 const mongoCreateProductRepository = new MongoCreateProductRepository();
-const createProductController = new CreateProductController(mongoCreateProductRepository);
+const createProductController = new CreateProductController(
+  mongoCreateProductRepository
+);
 
 const mongoDeleteProductRepository = new MongoDeleteProductRepository();
-const deleteProductController = new DeleteProductController(mongoDeleteProductRepository);
+const deleteProductController = new DeleteProductController(
+  mongoDeleteProductRepository
+);
 
 const mongoGetProductsRepository = new MongoGetProductsRepository();
-const getProductsController = new GetProductsController(mongoGetProductsRepository);
+const getProductsController = new GetProductsController(
+  mongoGetProductsRepository
+);
 
 const mongoUpdateProductRepository = new MongoUpdateProductRepository();
-const updateProductController = new UpdateProductController(mongoUpdateProductRepository);
+const updateProductController = new UpdateProductController(
+  mongoUpdateProductRepository
+);
 
-productRoutes.post("/", async (req, res) => {
-
-    const { body, statusCode } = await createProductController.handle({
-      body: req.body,
-    });
-
-    res.status(statusCode).send(body);
+productRoutes.post("/register", async (req, res) => {
+  const { body, statusCode } = await createProductController.handle({
+    body: req.body,
   });
 
-  productRoutes.delete("/:id", async (req, res) => {
+  res.status(statusCode).send(body);
+});
 
-    const { body, statusCode } = await deleteProductController.handle({
-      params: req.params,
-    });
-
-    res.status(statusCode).send(body);
+productRoutes.delete("/:id", async (req, res) => {
+  const { body, statusCode } = await deleteProductController.handle({
+    params: req.params,
   });
 
-  productRoutes.get("/", async (req, res) => {
+  res.status(statusCode).send(body);
+});
 
-    const { body, statusCode } = await getProductsController.handle();
+productRoutes.get("/", async (req, res) => {
+  const { body, statusCode } = await getProductsController.handle();
 
-    res.status(statusCode).send(body);
+  res.status(statusCode).send(body);
+});
+
+productRoutes.patch("/:id", async (req, res) => {
+  const { body, statusCode } = await updateProductController.handle({
+    body: req.body,
+    params: req.params,
   });
 
-  productRoutes.patch("/:id", async (req, res) => {
+  res.status(statusCode).send(body);
+});
 
-    const { body, statusCode } = await updateProductController.handle({
-      body: req.body,
-      params: req.params,
-    });
-
-    res.status(statusCode).send(body);
-  });
-
-  export default productRoutes;
+export default productRoutes;
