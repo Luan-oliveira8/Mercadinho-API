@@ -38,7 +38,7 @@ productRoutes.post("/register", async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-productRoutes.delete("/:id", async (req, res) => {
+productRoutes.delete("/delete/:id", async (req, res) => {
   const { body, statusCode } = await deleteProductController.handle({
     params: req.params,
   });
@@ -52,7 +52,7 @@ productRoutes.get("/", async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-productRoutes.patch("/:id", async (req, res) => {
+productRoutes.patch("/edit/:id", async (req, res) => {
   const { body, statusCode } = await updateProductController.handle({
     body: req.body,
     params: req.params,

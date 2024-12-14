@@ -47,7 +47,7 @@ userRoutes.post("/register", async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-userRoutes.patch("/:id", async (req, res) => {
+userRoutes.patch("/edit/:id", async (req, res) => {
   const { body, statusCode } = await updateUserController.handle({
     body: req.body,
     params: req.params,
@@ -56,7 +56,7 @@ userRoutes.patch("/:id", async (req, res) => {
   res.status(statusCode).send(body);
 });
 
-userRoutes.delete("/:id", async (req, res) => {
+userRoutes.delete("/delete/:id", async (req, res) => {
   const { body, statusCode } = await deleteUserController.handle({
     params: req.params,
   });
