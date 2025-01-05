@@ -4,6 +4,7 @@ import cors from "cors";
 import { MongoClient } from "./database/mongo";
 import userRoutes from "./routes/userRoutes";
 import productRoutes from "./routes/productRoutes";
+import purchaseRoutes from "./routes/purchaseRoutes";
 
 const main = async () => {
   config();
@@ -19,6 +20,8 @@ const main = async () => {
   app.use("/users", userRoutes);
 
   app.use("/products", productRoutes);
+
+  app.use("/purchases", purchaseRoutes);
 
   const port = process.env.PORT || 8080;
 

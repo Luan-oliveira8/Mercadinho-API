@@ -1,9 +1,12 @@
 import { Product } from "../models/product";
+import { Purchase } from "../models/purchase";
 import { User } from "../models/user";
 
 export type MongoUser = Omit<User, "id">;
 
 export type MongoProduct = Omit<Product, "id">;
+
+export type MongoPurchase = Omit<Purchase, "id">;
 
 export const transformMongoObject = <T extends { _id: any }>(
   mongoObject: T
