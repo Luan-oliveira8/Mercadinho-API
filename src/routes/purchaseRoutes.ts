@@ -5,6 +5,8 @@ import { MongoDeletePurchaseRepository } from "../repositories/purchase/deletePu
 import { DeletePurchaseController } from "../controllers/purchase/deletePurchase/deletePurchase";
 import { MongoGetPurchasesRepository } from "../repositories/purchase/getPurchases/MongoGetPurchases";
 import { GetPurchasesController } from "../controllers/purchase/getPurchase/getPurchases";
+import { MongoUpdatePurchaseRepository } from "../repositories/purchase/updatePurchase/MongoUpdatePurchase";
+import { UpdatePurchaseController } from "../controllers/purchase/updatePurchase/updateProduct";
 
 const purchaseRoutes = Router();
 
@@ -21,6 +23,11 @@ const deletePurchaseController = new DeletePurchaseController(
 const mongoGetPurchasesRepository = new MongoGetPurchasesRepository();
 const getPurchasesController = new GetPurchasesController(
   mongoGetPurchasesRepository
+);
+
+const mongoUpdatePurchaseRepository = new MongoUpdatePurchaseRepository();
+const updatePurchaseController = new UpdatePurchaseController(
+  mongoUpdatePurchaseRepository
 );
 
 purchaseRoutes.post("/register", async (req, res) => {
@@ -41,6 +48,15 @@ purchaseRoutes.delete("/delete/:id", async (req, res) => {
 
 purchaseRoutes.get("/", async (req, res) => {
   const { body, statusCode } = await getPurchasesController.handle();
+
+  res.status(statusCode).send(body);
+});
+
+purchaseRoutes.patch("/edit/:id", async (req, res) => {
+  const { body, statusCode } = await updatePurchaseController.handle({
+    body: req.body,
+    params: req.params,
+  });
 
   res.status(statusCode).send(body);
 });
