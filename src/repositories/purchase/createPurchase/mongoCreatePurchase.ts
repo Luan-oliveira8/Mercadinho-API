@@ -5,11 +5,18 @@ import {
   CreatePurchaseParams,
   ICreatePurchaseRepository,
 } from "../../../controllers/purchase/createPurchase/protocols";
+import { checkProductsAvailability } from "../../../queries/productQueries/productQueries";
 
 export class MongoCreatePurchaseRepository
   implements ICreatePurchaseRepository
 {
   async createPurchase(params: CreatePurchaseParams): Promise<Purchase> {
+    const productsAvailability = await checkProductsAvailability(params.data);
+
+    if (!productsAvailability) {
+      throw new Error("Insufficient product quantity in stock");
+    }
+
     const { insertedId } = await MongoClient.db
       .collection("purchases")
       .insertOne(params);

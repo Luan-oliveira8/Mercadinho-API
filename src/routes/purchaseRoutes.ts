@@ -30,7 +30,7 @@ const updatePurchaseController = new UpdatePurchaseController(
   mongoUpdatePurchaseRepository
 );
 
-purchaseRoutes.post("/register", async (req, res) => {
+purchaseRoutes.post("/register-and-update-stock", async (req, res) => {
   const { body, statusCode } = await createPurchaseController.handle({
     body: req.body,
   });
