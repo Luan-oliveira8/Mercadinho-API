@@ -5,6 +5,7 @@ export interface CreatePurchaseParams {
   totalAmount?: number;
   amountReturn?: number;
   paidAmount?: number;
+  purchaseReference?: string;
   data: Product[];
 }
 

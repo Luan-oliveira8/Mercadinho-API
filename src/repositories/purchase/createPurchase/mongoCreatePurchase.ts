@@ -17,6 +17,8 @@ export class MongoCreatePurchaseRepository
       throw new Error("Insufficient product quantity in stock");
     }
 
+    console.log(params);
+
     const { insertedId } = await MongoClient.db
       .collection("purchases")
       .insertOne(params);

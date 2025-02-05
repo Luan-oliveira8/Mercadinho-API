@@ -5,5 +5,6 @@ export interface Purchase {
   totalAmount?: number;
   amountReturn?: number;
   paidAmount?: number;
+  purchaseReference?: string;
   data: Product[];
 }
